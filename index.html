@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>آلة حاسبة جميلة وتفاعلية</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #74ebd5, #ACB6E5);
+            backdrop-filter: blur(10px);
+            margin: 0;
+        }
+        .calculator {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+            text-align: center;
+            width: 350px;
+        }
+        .display {
+            width: 100%;
+            height: 70px;
+            font-size: 30px;
+            text-align: right;
+            margin-bottom: 15px;
+            border-radius: 20px;
+            padding: 10px;
+            background: linear-gradient(145deg, #e6e6e6, #ffffff);
+            box-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
+            transition: color 0.5s, background-color 0.5s;
+        }
+        .button {
+            width: 70px;
+            height: 70px;
+            font-size: 24px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 35px;
+            background: linear-gradient(145deg, #ff7e5f, #feb47b);
+            color: white;
+            box-shadow: 5px 5px 10px #d1d1d1, -5px -5px 10px #ffffff;
+            transition: all 0.3s;
+        }
+        .button:hover {
+            background: linear-gradient(145deg, #feb47b, #ff7e5f);
+            transform: translateY(-3px);
+        }
+        .button:active {
+            transform: translateY(2px);
+        }
+        .equal-button {
+            width: 150px;
+            height: 70px;
+            font-size: 28px;
+            border-radius: 35px;
+            background: linear-gradient(145deg, #ff6a00, #ee0979);
+            color: white;
+            transition: all 0.3s;
+        }
+        .equal-button:hover {
+            background: linear-gradient(145deg, #ee0979, #ff6a00);
+        }
+        .operators-container {
+            margin-top: 15px;
+        }
+        .function-button {
+            background: linear-gradient(145deg, #007BFF, #0056b3);
+        }
+        .function-button:hover {
+            background: linear-gradient(145deg, #0056b3, #007BFF);
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <input type="text" class="display" id="display" disabled>
+        <div>
+            <button class="button" onclick="appendToDisplay('7')">7</button>
+            <button class="button" onclick="appendToDisplay('8')">8</button>
+            <button class="button" onclick="appendToDisplay('9')">9</button>
+        </div>
+        <div>
+            <button class="button" onclick="appendToDisplay('4')">4</button>
+            <button class="button" onclick="appendToDisplay('5')">5</button>
+            <button class="button" onclick="appendToDisplay('6')">6</button>
+        </div>
+        <div>
+            <button class="button" onclick="appendToDisplay('1')">1</button>
+            <button class="button" onclick="appendToDisplay('2')">2</button>
+            <button class="button" onclick="appendToDisplay('3')">3</button>
+        </div>
+        <div>
+            <button class="button" onclick="appendToDisplay('0')">0</button>
+            <button class="equal-button" onclick="calculate()">=</button>
+        </div>
+        <div class="operators-container">
+            <button class="button operator" onclick="appendToDisplay('/')">/</button>
+            <button class="button operator" onclick="appendToDisplay('*')">*</button>
+            <button class="button operator" onclick="appendToDisplay('-')">-</button>
+            <button class="button operator" onclick="appendToDisplay('+')">+</button>
+            <button class="button operator" onclick="appendToDisplay('%')">%</button>
+            <button class="button function-button" onclick="appendToDisplay('Math.sin(')">sin</button>
+            <button class="button function-button" onclick="appendToDisplay('Math.cos(')">cos</button>
+            <button class="button function-button" onclick="appendToDisplay('Math.tan(')">tan</button>
+        </div>
+        <button class="button operator" onclick="clearDisplay()">C</button>
+    </div>
+
+    <audio id="click-sound" src="https://www.soundjay.com/button/sounds/button-3.mp3"></audio>
+
+    <script>
+        function playClickSound() {
+            const audio = document.getElementById('click-sound');
+            audio.currentTime = 0; // إعادة تشغيل الصوت
+            audio.play();
+        }
+
+        function appendToDisplay(value) {
+            playClickSound();
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            playClickSound();
+            document.getElementById('display').value = '';
+        }
+
+        function calculate() {
+            playClickSound();
+            const display = document.getElementById('display');
+            try {
+                const result = eval(display.value);
+                display.value = '';
+                setTimeout(() => {
+                    display.style.color = 'red';
+                    display.value = result;
+                    set
